@@ -26,8 +26,62 @@ process.chdir('my-app');
 runCommand('git init');
 
 // Create README.md and .gitignore files
-fs.writeFileSync('README.md', '# My React App');
+fs.writeFileSync('README.md', '# My Custom React App');
 fs.writeFileSync('.gitignore', 'node_modules\n');
+
+// Replace the content of public/index.html
+const indexHtmlContent = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Custom React App</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>
+`;
+fs.writeFileSync('public/index.html', indexHtmlContent);
+
+// Replace the content of src/App.js
+const appJsContent = `
+import React from 'react';
+
+function App() {
+  return (
+    <div>
+      <h1>Welcome to My Custom React App</h1>
+      <p>This is a custom React app created with a modified index.html file.</p>
+    </div>
+  );
+}
+
+export default App;
+`;
+fs.writeFileSync('src/App.js', appJsContent);
+
+// Create public/styles.css file
+const stylesCssContent = `
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+}
+
+h1 {
+  color: #333;
+}
+
+p {
+  color: #666;
+}
+`;
+fs.writeFileSync('public/styles.css', stylesCssContent);
 
 // Add all files to the staging area
 runCommand('git add .');
